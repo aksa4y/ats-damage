@@ -16,3 +16,5 @@ CMakeUserPresets.json
 *.log
 *.zip
 .DS_Store
+
+/.setup/

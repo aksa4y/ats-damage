@@ -12,6 +12,9 @@ jobs:
           repository: TrackAndTruckDevs/SPF-Framework
           ref: 1243098a897c625e5ddcab1fd4de4327bd0c8bb8
           path: external/SPF-Framework
+      - name: Validate Windows PowerShell setup
+        shell: powershell
+        run: ./tests/SetupTests.ps1
       - run: cmake -S . -B build -A x64 -DSPF_ROOT="${{ github.workspace }}/external/SPF-Framework"
       - run: cmake --build build --config Release
       - run: ctest --test-dir build -C Release --output-on-failure
