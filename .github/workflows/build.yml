@@ -1,0 +1,22 @@
+name: Build
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: TrackAndTruckDevs/SPF-Framework
+          ref: 1243098a897c625e5ddcab1fd4de4327bd0c8bb8
+          path: external/SPF-Framework
+      - run: cmake -S . -B build -A x64 -DSPF_ROOT="${{ github.workspace }}/external/SPF-Framework"
+      - run: cmake --build build --config Release
+      - run: ctest --test-dir build -C Release --output-on-failure
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ATSDamage-windows-x64
+          path: build/Release/ATSDamage.dll
+          if-no-files-found: error
