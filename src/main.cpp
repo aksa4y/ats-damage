@@ -1,11 +1,13 @@
 #include "DamageSystem.h"
 #include "UI.h"
+#include "TelemetryValidation.h"
 #include <SPF/SPF_API/SPF_Plugin.h>
 #include <SPF/SPF_API/SPF_Manifest_API.h>
 #include <SPF/SPF_API/SPF_Config_API.h>
 #include <SPF/SPF_API/SPF_Telemetry_API.h>
 #include <SPF/SPF_API/SPF_KeyBinds_API.h>
 #include <cstring>
+#include <algorithm>
 namespace {
 constexpr char Name[] = "ATSDamage";
 constexpr const char* Keys[] = {"settings.bumper", "settings.lights", "settings.wheels"};
@@ -52,7 +54,8 @@ void update() {
         system.reset();
         std::memcpy(truckId, constants.id, sizeof(truckId));
     }
-    const bool available = std::strncmp(game.game_id, "ats", sizeof(game.game_id)) == 0
+    const bool available = damage::isAts(std::string_view(game.game_id,
+        static_cast<std::size_t>(std::find(game.game_id, game.game_id + sizeof(game.game_id), '\0') - game.game_id)))
         && constants.id[0] != '\0' && !game.paused;
     system.update({available, data.wear_cabin, data.wear_chassis, data.wear_wheels}, settings);
 }

@@ -1,4 +1,5 @@
 #include "DamageSystem.h"
+#include "TelemetryValidation.h"
 #include <cstdlib>
 #include <iostream>
 #include <limits>
@@ -18,6 +19,9 @@ void check(bool pass, const char* what) {
     if (!pass) { std::cerr << what << '\n'; std::exit(1); }
 }
 int main() {
+    check(damage::isAts("ATS"), "SPF uppercase game identifier");
+    check(damage::isAts("ats"), "SCS lowercase game identifier");
+    check(!damage::isAts("ETS2") && !damage::isAts("") && !damage::isAts("ATSx"), "reject other and missing games");
     Backend backend;
     damage::DamageSystem system(backend);
     damage::Settings settings;

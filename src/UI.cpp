@@ -8,8 +8,11 @@ bool drawPanel(SPF_UI_API* ui, Settings& settings, const State& state) {
     constexpr const char* labels[] = {"Порог повреждения бампера (%)",
         "Порог повреждения фар (%)", "Порог повреждения колёс (%)"};
     constexpr const char* names[] = {"Бампер ← шасси", "Фары ← кабина", "Колёса ← средний износ"};
+    constexpr const char* ids[] = {"##bumper", "##lights", "##wheels"};
     for (std::size_t i = 0; i < PartCount; ++i) {
-        ui->UI_SliderFloat(labels[i], &settings.threshold[i], 1.f, 100.f,
+        ui->UI_TextWrapped(labels[i]);
+        ui->UI_SetNextItemWidth(-1.f);
+        ui->UI_SliderFloat(ids[i], &settings.threshold[i], 1.f, 100.f,
                            "%.0f %%", SPF_SLIDER_FLAG_ALWAYS_CLAMP);
         char text[256];
         if (!state.available) std::snprintf(text, sizeof(text), "%s: нет данных", names[i]);
