@@ -224,7 +224,8 @@ try {
         }
         throw $failure
     }
-    Say 'Готово. F7 — панель плагина; Delete — интерфейс SPF. Визуальная подмена материалов пока не реализована.'
+    Say 'Готово. Левый Ctrl + левый Shift + D — панель (новая установка); Delete — интерфейс SPF. Визуальная подмена материалов пока не реализована.'
+    Say 'Если раньше использовалась F7: откройте SPF клавишей Delete и переназначьте ATSDamage / Panel.toggle. Сохранённые привязки автоматически не меняются.'
     if (!$NoLaunch) {
         # Explorer delegates the Steam URI to the interactive desktop session.
         Start-Process 'explorer.exe' -ArgumentList 'steam://rungameid/270880'

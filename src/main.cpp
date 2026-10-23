@@ -90,7 +90,7 @@ void manifest(SPF_Manifest_Builder_Handle* h, const SPF_Manifest_Builder_API* ap
     api->Settings_SetJson(h, R"({"enabled":true,"bumper":25,"lights":20,"wheels":35})");
     api->Defaults_AddWindow(h, "Panel", true, true, 30, 60, 470, 370, false, false);
     api->Meta_AddWindow(h, "Panel", "Повреждения грузовика", "Пороги визуальных эффектов");
-    api->Defaults_AddKeybind(h, "Panel", "toggle", "keyboard", "KEY_F7", "always");
+    api->Defaults_AddKeybind(h, "Panel", "toggle", "chord", "keyboard:KEY_LCONTROL+keyboard:KEY_LSHIFT+keyboard:KEY_D", "always");
     api->Meta_AddKeybind(h, "Panel", "toggle", "Показать панель повреждений", "Открыть или скрыть панель");
 }
 }
